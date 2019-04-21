@@ -1,4 +1,36 @@
 from model import Model
+from model import Player
+import view as v
+import controller as cont
+
+def create_game(options = 'terminal'):
+
+    m = create_bare_game()
+
+    # Initial positions
+    pos = create_initial_positions()
+    m.set_placement(pos)
+
+    # Create view
+    view = create_view(options)
+    m.set_view(view)
+
+    # Create controller
+    controller = create_controller(options)
+    m.set_controller(controller)
+
+    # Create players
+    p1 = Player(view, controller, '1')
+    p2 = Player(view, controller, '2')
+    m.set_players([p1, p2])
+    return m
+
+def create_controller(options = 'terminal'):
+    return cont.Terminal()
+
+def create_view(options = 'terminal'):
+
+    return v.Terminal()
 
 def create_bare_game():
 
@@ -7,6 +39,9 @@ def create_bare_game():
     return m
 
 def create_initial_positions():
+    '''
+    Could be moved into Game class
+    '''
 
     start_position_a = [
         (6, 5),
