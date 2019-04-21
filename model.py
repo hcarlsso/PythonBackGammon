@@ -43,17 +43,30 @@ class Model:
 
 class Player:
 
-    def __init__(self, view, controller, name):
+    def __init__(self, view, controller, name, func):
 
         self.view = view
         self.controller = controller
         self.name = name
-
+        self.func = func
+allowable_actions
     def play(self, board):
         self.view.display_board(board)
         (dice1, dice2) = self.roll_dice()
-        self.view.display_dice_roll(dice1,dice2)
+        self.view.display_dice_roll(dice1, dice2, self.name)
+
+
+
         self.controller.select_move()
 
     def roll_dice(self):
-        return (randint(1,6), randint(1,6))
+        (dice1, dice2) = (randint(1,6), randint(1,6))
+        return (dice1, dice2)
+
+    def get_allowable_index(self, board):
+        allowable_actions = []
+        for (i, state) in enumerate(board):
+            if self.func(state):
+                allowable_actions.append(i+1)
+
+        return allowable_actions

@@ -20,8 +20,8 @@ def create_game(options = 'terminal'):
     m.set_controller(controller)
 
     # Create players
-    p1 = Player(view, controller, '1')
-    p2 = Player(view, controller, '2')
+    p1 = Player(view, controller, '1', lambda x: x > 0)
+    p2 = Player(view, controller, '2', lambda x: x < 0)
     m.set_players([p1, p2])
     return m
 

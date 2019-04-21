@@ -10,6 +10,12 @@ class Terminal:
         vvvvvv vvvvvv
                    23
         '''
+        EMPTY = ' ' * 3
+        P1_SIGN = ' x '
+        P2_SIGN = ' o '
+        SEP_VERT = ' | '
+        SEP_HOR = ' v '
+
         print('#' * 20)
         print('Player 1')
 
@@ -19,24 +25,39 @@ class Terminal:
         rows1 = max(map(abs, overpart))
         rows2 = max(map(abs, underpart))
 
-        print('|||||| ||||||')
+
+        format_spec = "{0: ^3}"
+        # Indexing the positions
+        print(
+            ''.join(map(
+                lambda x: format_spec.format(x),
+                range(7,13)[::-1]
+            )),
+            SEP_VERT,
+            ''.join(map(
+                lambda x: format_spec.format(x),
+                range(1,7)[::-1]
+            )),
+            sep = ''
+        )
+        print((SEP_HOR * 6) + SEP_VERT + (SEP_HOR * 6))
         for r in range(rows1):
             for i in range(6,12)[::-1]:
                 if overpart[i] > (r):
-                    print('x', end='')
+                    print(P1_SIGN, end='')
                 elif overpart[i] < -(r):
-                    print('o', end='')
+                    print(P2_SIGN, end='')
                 else:
-                    print(' ', end='')
+                    print(EMPTY, end='')
 
-            print(' ', end='')
+            print(SEP_VERT, end='')
             for i in range(6)[::-1]:
                 if overpart[i] > (r ):
-                    print('x', end='')
+                    print(P1_SIGN, end='')
                 elif overpart[i] < -(r):
-                    print('o', end='')
+                    print(P2_SIGN, end='')
                 else:
-                    print(' ', end='')
+                    print(EMPTY, end='')
 
 
             print('')
@@ -46,27 +67,40 @@ class Terminal:
         for r in range(rows2)[::-1]:
             for i in range(6):
                 if underpart[i] > (r):
-                    print('x', end='')
+                    print(P1_SIGN, end='')
                 elif underpart[i] < -(r):
-                    print('o', end='')
+                    print(P2_SIGN, end='')
                 else:
-                    print(' ', end='')
+                    print(EMPTY, end='')
 
-            print(' ', end='')
+            print(SEP_VERT, end='')
             for i in range(6,12):
                 if underpart[i] > (r):
-                    print('x', end='')
+                    print(P1_SIGN, end='')
                 elif underpart[i] < -(r):
-                    print('o', end='')
+                    print(P2_SIGN, end='')
                 else:
-                    print(' ', end='')
+                    print(EMPTY, end='')
 
             print('')
 
-        print('|||||| ||||||')
+        print((SEP_HOR * 6) + SEP_VERT + (SEP_HOR * 6))
+        print(
+            ''.join(map(
+                lambda x: format_spec.format(x),
+                range(1+12,7+12)
+            )),
+            SEP_VERT,
+            ''.join(map(
+                lambda x: format_spec.format(x),
+                range(7+12,13+12)
+            )),
+            sep = ''
+        )
         print('Player 2')
+        print('#' * 20)
 
-    def display_dice_roll(self, dice1, dice2):
-
-        print(dice1)
-        print(dice2)
+    def display_dice_roll(self, dice1, dice2, player):
+        print(
+            'Player ' + player + ' rolled ' + str(dice1) + ' and ' + str(dice2)
+        )
