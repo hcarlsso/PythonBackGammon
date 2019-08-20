@@ -100,7 +100,14 @@ class Terminal:
         print('Player 2')
         print('#' * 20)
 
-    def display_dice_roll(self, dice1, dice2, player):
-        print(
-            'Player ' + player + ' rolled ' + str(dice1) + ' and ' + str(dice2)
-        )
+    def display_dice_roll(self, dices, player):
+        if len(dices) == 2:
+            print(
+                'Player ' + player +
+                ' rolled ' + str(dices[0]) +
+                ' and ' + str(dices[1])
+            )
+        else:
+            print(
+                'Player ' + player + ' rolled double ' + str(dices[0])
+            )
